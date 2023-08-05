@@ -1,5 +1,9 @@
 body {
-  margin: 0;
+  background-color: white;
+  text-align:center;
+  margin: 20px;
+  padding: 0;
+  vertical-align: center;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -10,4 +14,51 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.square {
+  background-color: #f1f1f3;
+  height: 90px;
+  width: 90px;
+  font-size: 30px;
+  font-family: 'Montserrat', sans-serif;
+  margin: 4px;
+  border: 4px solid black;
+  border-radius: 5px;
+}
+
+.word {
+  letter-spacing: 5px;
+  font-size: 100px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.victorystatement {
+  font-size: 50px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.image {
+  height: 300px;
+  width: 300px;
+}
+.exists {
+  background-color: #4fb057;
+  height: 90px;
+  width: 90px;
+  font-size: 30px;
+  font-family: 'Montserrat', sans-serif;
+  margin: 4px;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+.notExisting {
+  background-color: #c9363b;
+  height: 90px;
+  width: 90px;
+  font-size: 30px;
+  font-family: 'Montserrat', sans-serif;
+  margin: 4px;
+  border: 2px solid black;
+  border-radius: 5px;
 }
