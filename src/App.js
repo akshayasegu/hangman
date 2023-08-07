@@ -7,7 +7,6 @@ import move4 from "./Move4.png";
 import move5 from "./Move5.png";
 import move6 from "./Move6.png";
 let trials = [];
-let cond = true
 let imgs = [basepic,move1,move2,move3,move4,move5,move6]
 function Alphabet({ value, onSquareClick }) {
   return (
@@ -16,34 +15,45 @@ function Alphabet({ value, onSquareClick }) {
     </button>
   );
 }
+function playAgain (randWord){
+  randWord = generate();
+  console.log(randWord);
+  let input = [];
+  for (let i = 0; i < randWord.length; i++) {
+    input.push("_")
+  }
+  return(randWord,input)
+}
 function handleClick(i,alphabet,word,input,trials) {
   console.log(i)
   console.log(alphabet[i])
   if (word.includes(alphabet[i])) {
-    let tword = [...word]
-    let l = 0
     document.getElementById(alphabet[i]).className = "exists"
-    while (tword.includes(alphabet[i])){
-      input.splice(tword.indexOf(alphabet[i])+l,1)
-      input.splice(tword.indexOf(alphabet[i])+l,0,alphabet[i])
-      console.log(i + "exists")
-      document.getElementById("myspan").textContent=input.join('')
-      if (input.join('') === word.join('')) {
-        document.getElementById("myspan").className= "victorystatement"
-        document.getElementById("myspan").textContent="Congrats! You Won! The word is "+word.join("")
+    let letter = 0;
+    for (letter = 0; letter < word.length; letter++)
+      if (word[letter] == alphabet[i]){
+        input.splice(letter,1)
+        input.splice(letter,0,alphabet[i])
+        console.log(i + "exists")
+        document.getElementById("myspan").textContent=input.join('')
+        if (input.join('') === word.join('')) {
+          document.getElementById("myspan").className= "victorystatement"
+          document.getElementById("myspan").textContent="Congrats! You Won! The word is "+word.join("")
+        }
       }
-      tword.splice(tword.indexOf(alphabet[i]),1)
-      l++
+      else {
+        continue
+      }
     }
-  }
   else {
     document.getElementById(alphabet[i]).className = "notExisting"
     console.log("move!!!");
     trials.push('x')
     document.getElementById("imageid").src = imgs[trials.length];
+    document.getElementById("movecount").textContent = "You have " + (6-trials.length) + " moves left"
     if (trials.length === 6){
       document.getElementById("myspan").className= "victorystatement"
-      document.getElementById("myspan").textContent= "Your word is: " + word.join("")
+      document.getElementById("myspan").textContent= "Nice try! Your word is: " + word.join("")
     }
   }
 }
@@ -55,6 +65,7 @@ function getButtons(startindx,endingindx,alphabet,word,input,trials){
   return buttons
 }
 export default function Game(){
+  const refresh = () => window.location.reload(true)
   let classname = "square";
   var randWord = generate()
   let alphabet=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
@@ -67,19 +78,24 @@ export default function Game(){
   console.log(input)
   return(
     <div>
-      <div>
-        <img src = {basepic} id="imageid" className="image" alt="Missed"/>
-
+      <div className = "parent">
+        <div>
+          <img src = {basepic} id="imageid" className="image" alt="Missed"/>
+        </div>
+        <span id = "movecount" className = "movestatement">You have 6 moves left</span>
+        <div>
+          <span id="myspan" className="word">{input.join('')}</span>
+        </div>
+        <div className = "alpha">
+          <div>
+            {getButtons(0,13,alphabet,word,input,trials)}
+          </div>
+          <div>
+            {getButtons(13,26,alphabet,word,input,trials)}
+          </div>
+        </div>
       </div>
-      <div>
-        <span id="myspan" className="word">{input.join('')}</span>
-      </div>
-      <div>
-        {getButtons(0,13,alphabet,word,input,trials)}
-      </div>
-      <div>
-        {getButtons(13,26,alphabet,word,input,trials)}
-      </div>
+      <button className = "retry" onClick={refresh}>Click to Play Again</button>
     </div>
   )
 }
